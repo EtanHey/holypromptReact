@@ -14,10 +14,6 @@
   "bugs": {
     "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
   },
-  // "repository": {
-  //   "type": "git",
-  //   "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
-  // },
   "license": "MIT",
   "main": "./src/main/main.ts",
   "scripts": {
