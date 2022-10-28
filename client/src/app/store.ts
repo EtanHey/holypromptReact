@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import markersReducer from '../features/markers/markersSlice';
+import usersReducer from '../features/users/usersSlice';
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -9,24 +9,24 @@ export const store = configureStore({
         ignoredActions: ['your/action/type'],
         // Ignore these field paths in all actions
         ignoredActionPaths: [
-          'meta.arg',
-          'payload.timestamp',
-          'payload.location',
-          `payload.circle.location`,
+          // 'meta.arg',
+          // 'payload.timestamp',
+          // 'payload.location',
+          // `payload.circle.location`,
         ],
         // Ignore these paths in the state
         ignoredPaths: [
-          'items.dates',
-          `circles.currentList.circle.location`,
-          'circles.lists.0.circle.location',
-          `markers.markers`,
-          'circles.lists',
+          // 'items.dates',
+          // `circles.currentList.circle.location`,
+          // 'circles.lists.0.circle.location',
+          // `markers.markers`,
+          // 'circles.lists',
         ],
       },
     }),
 
   reducer: {
-    markers: markersReducer,
+    users: usersReducer,
   },
 });
 

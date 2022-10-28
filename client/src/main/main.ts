@@ -9,11 +9,13 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, net } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { UsersLoginInfo } from '../interfaces&enums/usersInterfaces';
+import { getUsersInfo } from './requesters/userReqs';
 
 class AppUpdater {
   constructor() {
@@ -90,7 +92,7 @@ const createWindow = async () => {
     if (process.env.START_MINIMIZED) {
       mainWindow.minimize();
     } else {
-      mainWindow.setFullScreen(true);
+      // mainWindow.setFullScreen(true);
       mainWindow.show();
     }
   });
@@ -134,3 +136,10 @@ app
     });
   })
   .catch(console.log);
+
+ipcMain.handle('getUsersInfo', (event, loginInfo: UsersLoginInfo) => {
+  console.log(loginInfo);
+
+  const data = getUsersInfo(loginInfo);
+  return data;
+});

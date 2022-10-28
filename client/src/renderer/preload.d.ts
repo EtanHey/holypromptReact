@@ -1,4 +1,10 @@
-import { Channels } from 'main/preload';
+import {
+  UsersInfo,
+  UsersLoginInfo,
+  UsersState,
+} from '../interfaces&enums/usersInterfaces';
+
+import { Channels } from '../main/preload';
 
 declare global {
   interface Window {
@@ -10,6 +16,8 @@ declare global {
           func: (...args: unknown[]) => void
         ): (() => void) | undefined;
         once(channel: Channels, func: (...args: unknown[]) => void): void;
+        getUsersInfo(info: UsersLoginInfo): any;
+        setUsersInfo(): UsersState;
       };
     };
   }
