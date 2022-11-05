@@ -1,0 +1,50 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  place-content: space-evenly;
+  margin-block: 7.42268041237rem;
+  width: 29vw;
+  height: 70vh;
+  &.page {
+    background: var(--loginGradient);
+  }
+  &__form {
+    width: 100%;
+    & > * {
+      &:not(:first-child){
+        margin-block-start: 1rem;
+      }
+      &:not(:last-child){
+        margin-block-end: 1rem;
+      }
+    }
+    .loginButton {
+      background-color: var(--red2);
+      color: var(--white);
+      font-weight: bold;
+      width: 100%;
+      height: 7vh;
+    }
+  }
+  &__inputs {
+    display: flex;
+    color: var(--gray1);
+    place-content: space-between;
+    place-items: center;
+    padding: 1em 0.5em;
+    background-color: var(--white);
+    border-radius: 5px;
+    & input {
+      all: unset;
+      width: 100%;
+    }
+  }
+  &__eye {
+    all: unset;
+    display: contents;
+  }
+  a {
+    color: green;
+  }
+}

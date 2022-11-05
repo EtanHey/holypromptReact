@@ -1,10 +1,12 @@
 import express from "express"
 const router = express.Router();
 
-import {getUsersInfo} from '../controllers/usersCont'
+import {getUsersInfo,getGoogleUsersInfo, checkUserFromCookie} from '../controllers/usersCont'
 
 router
+.post('/checkUserFromCookie',checkUserFromCookie)
 .post('/getUsersInfo',getUsersInfo)
+.post('/getGoogleUsersInfo',getGoogleUsersInfo)
 
 
 

@@ -16,7 +16,9 @@ declare global {
           func: (...args: unknown[]) => void
         ): (() => void) | undefined;
         once(channel: Channels, func: (...args: unknown[]) => void): void;
+        checkUserFromCookie(): any;
         getUsersInfo(info: UsersLoginInfo): any;
+        getGoogleUsersInfo(loginJWT: string): any;
         setUsersInfo(): UsersState;
       };
     };

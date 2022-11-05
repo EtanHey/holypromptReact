@@ -9,13 +9,24 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain, net } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
+  net,
+  globalShortcut,
+} from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import { UsersLoginInfo } from '../interfaces&enums/usersInterfaces';
-import { getUsersInfo } from './requesters/userReqs';
+import {
+  getUsersInfo,
+  getGoogleUsersInfo,
+  checkUserFromCookie,
+} from './requesters/userReqs';
 
 class AppUpdater {
   constructor() {
@@ -92,7 +103,7 @@ const createWindow = async () => {
     if (process.env.START_MINIMIZED) {
       mainWindow.minimize();
     } else {
-      // mainWindow.setFullScreen(true);
+      mainWindow.setFullScreen(true);
       mainWindow.show();
     }
   });
@@ -124,10 +135,17 @@ app.on('window-all-closed', () => {
   // after all windows have been closed
   app.quit();
 });
-
+app.userAgentFallback = app.userAgentFallback.replace(
+  // eslint-disable-next-line prefer-template
+  'Electron' + process.versions.electron,
+  ''
+);
 app
   .whenReady()
   .then(() => {
+    globalShortcut.register('CommandOrControl+R', () => {
+      console.log('Unable to refresh');
+    });
     createWindow();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
@@ -137,9 +155,17 @@ app
   })
   .catch(console.log);
 
-ipcMain.handle('getUsersInfo', (event, loginInfo: UsersLoginInfo) => {
-  console.log(loginInfo);
-
-  const data = getUsersInfo(loginInfo);
+// ipcMain.handle('checkUserFromCookie', async (event) => {
+//   const cookie = await event.sender.session.cookies.get({ name: 'UserCookie' });
+//   if (!cookie) return { user: 404 };
+// const data = await checkUserFromCookie();
+// return data;
+// });
+ipcMain.handle('getUsersInfo', async (event, loginInfo: UsersLoginInfo) => {
+  const data = await getUsersInfo(loginInfo);
+  return data;
+});
+ipcMain.handle('getGoogleUsersInfo', async (event, loginJWT: string) => {
+  const data = await getGoogleUsersInfo(loginJWT);
   return data;
 });

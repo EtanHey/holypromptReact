@@ -2,7 +2,7 @@
 import { createSlice, Slice } from '@reduxjs/toolkit';
 import StatusEnum from '../../interfaces&enums/statusEnums';
 import { UsersInfo, UsersState } from '../../interfaces&enums/usersInterfaces';
-import { getUsersInfoThunk, setUserInfo } from './usersAPI';
+import { getUsersInfoThunk, setUserInfo, getGoogleUserThunk } from './usersAPI';
 
 const initialState: UsersState = {
   status: StatusEnum.IDLE,
@@ -28,6 +28,7 @@ export const usersSlice: Slice<UsersState> = createSlice({
       .addCase(getUsersInfoThunk.fulfilled, (state: UsersState, action) => {
         const { user } = action.payload;
         state.user = user;
+        state.error = '';
         state.status = StatusEnum.IDLE;
       })
       .addCase(getUsersInfoThunk.rejected, (state: UsersState, action) => {
@@ -37,6 +38,21 @@ export const usersSlice: Slice<UsersState> = createSlice({
         }
         if (Number(errorNumber) === 403) {
           state.error = `The password you entered is wrong, Request denied with error ${errorNumber}`;
+        }
+        state.status = StatusEnum.FAILED;
+      })
+      .addCase(getGoogleUserThunk.pending, (state: UsersState) => {
+        state.status = StatusEnum.LOADING;
+      })
+      .addCase(getGoogleUserThunk.fulfilled, (state: UsersState, action) => {
+        const { user } = action.payload;
+        state.user = user;
+        state.status = StatusEnum.IDLE;
+      })
+      .addCase(getGoogleUserThunk.rejected, (state: UsersState, action) => {
+        const errorNumber = action.error.message;
+        if (errorNumber) {
+          state.error = `User doesn't exist, Request denied with error ${errorNumber}`;
         }
         state.status = StatusEnum.FAILED;
       })

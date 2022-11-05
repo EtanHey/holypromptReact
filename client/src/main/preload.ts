@@ -20,9 +20,16 @@ contextBridge.exposeInMainWorld('electron', {
     once(channel: Channels, func: (...args: unknown[]) => void) {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
+    checkUserFromCookie: async () => {
+      const data = await ipcRenderer.invoke('checkUserFromCookie');
+      return data;
+    },
     getUsersInfo: async (loginInfo: UsersLoginInfo) => {
       const data = await ipcRenderer.invoke('getUsersInfo', loginInfo);
-
+      return data;
+    },
+    getGoogleUsersInfo: async (loginJWT: string) => {
+      const data = await ipcRenderer.invoke('getGoogleUsersInfo', { loginJWT });
       return data;
     },
     setUsersInfo: async (info: UsersLoginInfo) => {

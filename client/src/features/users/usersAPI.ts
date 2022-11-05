@@ -1,13 +1,33 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { UsersLoginInfo } from '../../interfaces&enums/usersInterfaces';
 
+export const checkUserFromCookieThunk = createAsyncThunk(
+  'users/checkUserFromCookie',
+  async () => {
+    const { user } = await window.electron.ipcRenderer.checkUserFromCookie();
+    if (!Number.isNaN(Number(user))) throw new Error(user);
+    return { user };
+  }
+);
 export const getUsersInfoThunk = createAsyncThunk(
   'users/fetchUsersInfo',
   async (loginInfo: UsersLoginInfo) => {
     const { user } = await window.electron.ipcRenderer.getUsersInfo(loginInfo);
-    if (!Number.isNaN(user)) throw new Error(user);
-    return user;
+    if (!Number.isNaN(Number(user))) throw new Error(user);
+    return { user };
+  }
+);
+
+export const getGoogleUserThunk = createAsyncThunk(
+  'users/fetchGoogleUsersInfo',
+  async (loginJWT: string) => {
+    const { user } = await window.electron.ipcRenderer.getGoogleUsersInfo(
+      loginJWT
+    );
+    if (!Number.isNaN(Number(user))) throw new Error(user);
+    return { user };
   }
 );
 export const setUserInfo = createAsyncThunk('map/setUsersInfo', async () => {
