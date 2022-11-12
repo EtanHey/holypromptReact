@@ -28,13 +28,13 @@ const LoginForm = () => {
   };
   const handleManualLogin = async (ev: BaseSyntheticEvent) => {
     ev.preventDefault();
-    // let { email, password } = ev.target.elements;
-    // email = email.value;
-    // password = password.value;
-    // const { payload } = await dispatch(getUsersInfoThunk({ email, password }));
-    // if (payload) {
-    navigate('/editor');
-    // }
+    let { email, password } = ev.target.elements;
+    email = email.value;
+    password = password.value;
+    const { payload } = await dispatch(getUsersInfoThunk({ email, password }));
+    if (payload) {
+      navigate('/home');
+    }
   };
   return (
     <form

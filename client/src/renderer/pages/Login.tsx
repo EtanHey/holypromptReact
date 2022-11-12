@@ -19,11 +19,11 @@ const Login = () => {
     if (!credential) throw new Error('no credential');
     const { payload } = await dispatch(getGoogleUserThunk(credential));
     if (!payload) return google.accounts.id.prompt();
-    return navigate('/editor');
+    return navigate('/home');
   };
   return (
-    <div ref={loginPageRef} className="login page">
-      <div className="login">
+    <div ref={loginPageRef} className="login">
+      <div className="login__container">
         <HolyLogoRed screenWidth={width} />
         <h3 className="login__header">Login to HolyPrompt</h3>
         <LoginForm />

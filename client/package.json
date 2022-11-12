@@ -105,6 +105,7 @@
     "@react-oauth/google": "^0.2.8",
     "@reduxjs/toolkit": "^1.8.6",
     "@types/google.accounts": "^0.0.2",
+    "@types/styled-components": "^5.1.26",
     "axios": "^1.1.3",
     "electron-debug": "^3.2.0",
     "electron-json-storage": "^4.6.0",
@@ -115,7 +116,9 @@
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.3.0",
     "redux": "^4.2.0",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "styled-components": "^5.3.6",
+    "user-agents": "^1.0.1197"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
@@ -132,6 +135,7 @@
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
     "@types/terser-webpack-plugin": "^5.0.4",
+    "@types/user-agents": "^1.0.2",
     "@types/webpack-bundle-analyzer": "^4.4.2",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
@@ -182,6 +186,7 @@
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4",
     "url-loader": "^4.1.1",
+    "user-agent-data-types": "^0.3.0",
     "webpack": "^5.74.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.10.0",

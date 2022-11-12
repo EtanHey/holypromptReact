@@ -1,5 +1,24 @@
-.editor {
-  &.page {
-    background: var(--editorGradient);
+.tabs {
+}
+.lineNumbers {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  width: 4ch;
+  text-align: center;
+  & span {
+    counter-increment: lineNumber;
+    &::before {
+      content: counter(lineNumber);
+      display: block;
+      color: var(--white);
+    }
   }
+}
+.selectedFileEdit {
+  display: inline-flex;
+  padding: 0 0.5em;
+  max-height: 80vh;
+  // height: -webkit-fill-available;
+  overflow-y: scroll;
 }

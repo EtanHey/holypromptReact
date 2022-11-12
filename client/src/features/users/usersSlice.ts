@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import { createSlice, Slice } from '@reduxjs/toolkit';
-import StatusEnum from '../../interfaces&enums/statusEnums';
+import { StatusEnum } from '../../interfaces&enums/statusEnums';
 import { UsersInfo, UsersState } from '../../interfaces&enums/usersInterfaces';
 import { getUsersInfoThunk, setUserInfo, getGoogleUserThunk } from './usersAPI';
 

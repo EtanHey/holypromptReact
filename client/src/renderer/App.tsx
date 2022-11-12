@@ -5,7 +5,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 // eslint-disable-next-line import/no-unresolved
 import { store } from '../app/store';
 import './styles/global.scss';
-import Editor from './pages/Editor';
+import Home from './pages/Home';
 import Login from './pages/Login';
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <Provider store={store}>
           <Router>
             <Routes>
-              <Route path="/editor" element={<Editor />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/" element={<Login />} />
             </Routes>
           </Router>
