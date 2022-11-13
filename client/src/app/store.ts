@@ -1,5 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import usersReducer from '../features/users/usersSlice';
+import promptReducer from '../features/prompt/promptSlice';
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -27,6 +28,7 @@ export const store = configureStore({
 
   reducer: {
     users: usersReducer,
+    prompt: promptReducer,
   },
 });
 

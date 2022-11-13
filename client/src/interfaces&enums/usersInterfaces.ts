@@ -1,4 +1,4 @@
-import StatusEnum from './statusEnums';
+import { StatusEnum } from './statusEnums';
 
 export interface UsersInfo {
   name: { first: string; last: string };

@@ -24,7 +24,6 @@ const CurrentDevice = () => {
     if (deviceType === DeviceTypes.TABLET) {
       setDevice(DeviceTypes.TABLET);
     }
-    console.log(userAgent.data.deviceCategory);
   }, [device]);
   return (
     <div className="device">

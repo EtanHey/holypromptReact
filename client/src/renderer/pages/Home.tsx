@@ -1,6 +1,7 @@
 import React from 'react';
 import Editor from '../components/Editor';
 import OutputControl from '../components/OutputControl';
+import PromptModal from '../components/PromptModal';
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
         <OutputControl />
         <div className="bottomLine">6</div>
         <Editor />
+        <PromptModal />
       </div>
     </div>
   );

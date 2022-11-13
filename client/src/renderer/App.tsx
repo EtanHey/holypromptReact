@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 // eslint-disable-next-line import/no-unresolved
 import { store } from '../app/store';

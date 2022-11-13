@@ -10,6 +10,7 @@ interface TextAreaProps {
 interface EditorProps {
   bgColor?: string;
   textColor?: string;
+  fontSize?: string;
 }
 export const StyledTextArea = styled.textarea.attrs((props: TextAreaProps) => ({
   style: {
@@ -50,7 +51,44 @@ export const StyledEditor = styled.div.attrs((props: EditorProps) => ({
     padding: 0;
     border: 0;
     font-weight: 400;
-    font-size: 16px;
+    font-size: ${(props: EditorProps) => props.fontSize}||16px;
     line-height: 32px;
   }
 `;
+
+interface StyledPromptModalProps {
+  bgColor: string;
+  textColor: string;
+  show: boolean;
+  size: string;
+  fontSize: string;
+  aspectRatio: string;
+}
+export const StyledPromptModal: any = styled.div.attrs(
+  (props: StyledPromptModalProps) => ({
+    style: {
+      width: props.size || '50%',
+      // height: props.size || '50%',
+      display: props.show ? 'block' : 'none',
+      background: props.bgColor || 'var(--black)',
+      color: props.textColor || 'var(--white)',
+      aspectRatio: props.aspectRatio,
+    },
+  })
+)<StyledPromptModalProps>`
+  top: 0;
+  left: 0;
+  padding: 0;
+  border: 0;
+  position: fixed;
+  & * {
+    font-weight: 400;
+    font-family: 'Rubik', sans-serif;
+    font-size: ${(props: StyledPromptModalProps) => props.fontSize} || 16px;
+    line-height: 32px;
+  }
+`;
+
+interface StyledPromptToggleProps {
+  on?: boolean;
+}

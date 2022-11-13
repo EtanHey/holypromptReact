@@ -5,7 +5,6 @@ import { StyledTextArea } from './styledComponents';
 const SelectedFileEdit = () => {
   const lineNumbersRef: RefObject<HTMLDivElement> = useRef(null);
   const textAreaRef: RefObject<HTMLTextAreaElement> = useRef(null);
-
   const [textAreaHeight, setTextAreaHeigh] = useState(32);
   function handleKeyUpTextArea(event: any) {
     const numberOfLines = event.target.value.split('\n').length;
