@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from 'react';
+
 import UserAgent from 'user-agents';
-import Desktop from '../../../assets/SVGs/Desktop';
-import Phone from '../../../assets/SVGs/Phone';
-import Tablet from '../../../assets/SVGs/Tablet';
-import { DeviceTypes } from '../../interfaces&enums/statusEnums';
+import Desktop from '../../../../../assets/SVGs/Desktop';
+import Phone from '../../../../../assets/SVGs/Phone';
+import Tablet from '../../../../../assets/SVGs/Tablet';
+import { DeviceTypes } from '../../../../interfaces&enums/statusEnums';
 
 const CurrentDevice = () => {
   const [device, setDevice] = useState<string>();
@@ -14,6 +15,7 @@ const CurrentDevice = () => {
   // const deviceType = deviceAPI.deviceType;
   useEffect(() => {
     const userAgent = new UserAgent();
+
     const deviceType = userAgent.data.deviceCategory;
     if (deviceType === DeviceTypes.DESKTOP) {
       setDevice(DeviceTypes.DESKTOP);

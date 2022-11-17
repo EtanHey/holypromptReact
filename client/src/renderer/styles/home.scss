@@ -22,8 +22,65 @@
       '. btmLn .';
     place-items: center;
     place-content: center;
+    overflow: hidden;
     .fileControls {
       grid-area: fileCont;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5em;
+      &__button {
+        white-space: nowrap;
+        display: flex;
+        place-content: space-evenly;
+        place-items: center;
+        gap: 0.3em;
+        padding: 1em 1.5em;
+        font-weight: 400;
+        color: var(--white);
+        & svg {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+      .fileModal {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.3);
+        top: 0;
+        left: 0;
+        &__container {
+          position: absolute;
+          background-color: var(--blue4);
+          top: 30%;
+          left: 50%;
+          translate: -50% -30%;
+          width: 50%;
+          padding: 2em 6em;
+          z-index: -1;
+          .xButton {
+            top: 10px;
+            left: 10px;
+            position: absolute;
+          }
+          form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            .inputs {
+              display: flex;
+              place-items: end;
+              :first-child {
+                justify-self: stretch;
+                width: 100%;
+              }
+            }
+            :last-child {
+              align-self: center;
+            }
+          }
+        }
+      }
     }
     .settingsButton {
       grid-area: setBut;
@@ -42,7 +99,7 @@
       flex-direction: column;
       align-items: space-between;
       justify-content: space-between;
-      &__devices {
+      &__usersDevices {
         width: 100%;
         &-wrapper {
           background-color: var(--black);
@@ -52,25 +109,34 @@
           border-radius: 10px;
           display: flex;
           gap: 0.5rem;
+          place-content: space-evenly;
+          place-items: center;
+          .device {
+            display: flex;
+            flex-direction: column;
+            place-content: space-evenly;
+            place-items: center;
+          }
         }
       }
       &__prompt {
         text-align: center;
         display: flex;
         flex-direction: column;
+        place-items: center;
         gap: 1em;
+        &.on {
+          position: fixed;
+          top: 0;
+          left: 75%;
+          z-index: 99;
+        }
         &-toggle {
           position: relative;
           width: 75px;
           display: inline-block;
           text-align: left;
           top: 8px;
-          &.on {
-            position: fixed;
-            top: 90%;
-            left: 90%;
-            z-index: 99;
-          }
           label {
             display: block;
             overflow: hidden;

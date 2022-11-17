@@ -1,5 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable import/no-cycle */
-import { createSlice, Slice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
+import { FileInterface } from '../../interfaces&enums/fileInterface';
 import { StatusEnum } from '../../interfaces&enums/statusEnums';
 import { UsersInfo, UsersState } from '../../interfaces&enums/usersInterfaces';
 import { getUsersInfoThunk, setUserInfo, getGoogleUserThunk } from './usersAPI';
@@ -7,6 +10,7 @@ import { getUsersInfoThunk, setUserInfo, getGoogleUserThunk } from './usersAPI';
 const initialState: UsersState = {
   status: StatusEnum.IDLE,
   user: <UsersInfo>{},
+  files: [],
   error: '',
 };
 
@@ -18,6 +22,12 @@ export const usersSlice: Slice<UsersState> = createSlice({
     changeStatus: (state: UsersState) => {
       state.status = StatusEnum.IDLE;
     },
+    addFileToUser: (
+      state: UsersState,
+      action: PayloadAction<FileInterface>
+    ) => {
+      state.files = [...state.files, action.payload];
+    },
   },
 
   extraReducers: (builder) => {
@@ -27,6 +37,8 @@ export const usersSlice: Slice<UsersState> = createSlice({
       })
       .addCase(getUsersInfoThunk.fulfilled, (state: UsersState, action) => {
         const { user } = action.payload;
+        user.id = user._id;
+        user._id = undefined;
         state.user = user;
         state.error = '';
         state.status = StatusEnum.IDLE;
@@ -46,6 +58,8 @@ export const usersSlice: Slice<UsersState> = createSlice({
       })
       .addCase(getGoogleUserThunk.fulfilled, (state: UsersState, action) => {
         const { user } = action.payload;
+        user.id = `${user._id}`;
+        user._id = undefined;
         state.user = user;
         state.status = StatusEnum.IDLE;
       })
@@ -74,6 +88,9 @@ export const usersSlice: Slice<UsersState> = createSlice({
   },
 });
 
-export const { changeStatus } = usersSlice.actions;
+export const { changeStatus, addFileToUser } = usersSlice.actions;
+
+export const selectUsersFiles = (state: RootState) => state.users.files;
+export const selectUsersState = (state: RootState) => state.users.user;
 
 export default usersSlice.reducer;

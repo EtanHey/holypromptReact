@@ -1,24 +1,6 @@
-import JWT from 'jwt-simple';
 import * as jwt_decoder from 'jwt-js-decode';
 import UserModel from '../models/userModel';
-const jwt_secret = process.env.JWT_SECRET;
-export const checkUserFromCookie = async (req: any, res: any) => {
-  try {
-    console.log('here');
-    const {UserCookie} = req.body;
-    console.log(UserCookie);
 
-    console.log(UserCookie, 'userCookies');
-    // const isAUser = await UserModel.findOne({email: loginInfo.email}, {password: 0}).collation({locale: 'en', strength: 2});
-    // if (!isAUser) return res.send({user: 404});
-    // const verifiedUser = await UserModel.findOne({_id: isAUser._id, password: loginInfo.password}, {password: 0});
-    // if (!verifiedUser) return res.send({user: 403});
-    // return res.send({user: verifiedUser});
-  } catch (error) {
-    console.log(error);
-    res.send({error: error.message});
-  }
-};
 export const getUsersInfo = async (req: any, res: any) => {
   try {
     const loginInfo = req.body;
@@ -42,6 +24,20 @@ export const getGoogleUsersInfo = async (req: any, res: any) => {
     if (!user) return res.send({user: 404});
     // const encodedUser = JWT.encode(user, jwt_secret);
     return res.send({user: user});
+  } catch (error) {
+    console.log(error);
+    res.send({error: error.message});
+  }
+};
+export const addFileToUser = async (req: any, res: any) => {
+  try {
+    const incomingFile = req.body;
+    console.log(incomingFile);
+
+    const updatedFilesArray = await UserModel.findOneAndUpdate({_id: incomingFile.ownerId}, {$push: {files: incomingFile}});
+    console.log(updatedFilesArray, 'updatedFilesArray');
+
+    res.send(true);
   } catch (error) {
     console.log(error);
     res.send({error: error.message});

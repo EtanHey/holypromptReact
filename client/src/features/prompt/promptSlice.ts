@@ -1,13 +1,9 @@
 /* eslint-disable import/no-cycle */
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { PromptState } from '../../interfaces&enums/promptinterfaces';
+import { PromptState } from '../../interfaces&enums/promptInterfaces';
 import { PromptSizes, StatusEnum } from '../../interfaces&enums/statusEnums';
-import {
-  getUsersInfoThunk,
-  setUserInfo,
-  getGoogleUserThunk,
-} from './promptAPI';
+import { saveUserFilesThunk } from './promptAPI';
 
 const initialState: PromptState = {
   status: StatusEnum.IDLE,
@@ -15,6 +11,7 @@ const initialState: PromptState = {
   backgroundColor: 'var(--black)',
   font: "'Rubik', sans-serif",
   textSize: '16px',
+  files: [],
   speed: 1,
   local: {
     monitor: false,
@@ -38,49 +35,44 @@ export const promptSlice: Slice<PromptState> = createSlice({
     ) => {
       state.local.monitor = action.payload;
     },
+    setCurrentFileText: (
+      state: PromptState,
+      action: PayloadAction<Array<string>>
+    ) => {
+      const currentFile = state.files.find((file) => {
+        if (state.currentFile) {
+          return file.name === state.currentFile.name;
+        }
+        return undefined;
+      });
+      if (currentFile) {
+        currentFile.text = action.payload;
+        console.log(action.payload, 'action.payload');
+      }
+    },
   },
 
   extraReducers: (builder) => {
     builder
-      .addCase(getUsersInfoThunk.pending, (state: PromptState) => {
+      .addCase(saveUserFilesThunk.pending, (state: PromptState) => {
         state.status = StatusEnum.LOADING;
       })
-      .addCase(getUsersInfoThunk.fulfilled, (state: PromptState, action) => {
+      .addCase(saveUserFilesThunk.fulfilled, (state: PromptState, action) => {
         state.status = StatusEnum.IDLE;
       })
-      .addCase(getUsersInfoThunk.rejected, (state: PromptState, action) => {
-        state.status = StatusEnum.FAILED;
-      })
-      .addCase(getGoogleUserThunk.pending, (state: PromptState) => {
-        state.status = StatusEnum.LOADING;
-      })
-      .addCase(getGoogleUserThunk.fulfilled, (state: PromptState, action) => {
-        state.status = StatusEnum.IDLE;
-      })
-      .addCase(getGoogleUserThunk.rejected, (state: PromptState, action) => {
-        state.status = StatusEnum.FAILED;
-      })
-      .addCase(setUserInfo.pending, (state: PromptState) => {
-        state.status = StatusEnum.LOADING;
-      })
-      .addCase(
-        setUserInfo.fulfilled,
-        (
-          state: PromptState
-          // , action: PayloadAction<PromptState>
-        ) => {
-          state.status = StatusEnum.IDLE;
-        }
-      )
-      .addCase(setUserInfo.rejected, (state: PromptState) => {
+      .addCase(saveUserFilesThunk.rejected, (state: PromptState, action) => {
         state.status = StatusEnum.FAILED;
       });
   },
 });
 
 export const selectPromptState = (state: RootState) => state.prompt;
+export const selectCurrentFile = (state: RootState) => state.prompt.currentFile;
 
-export const { changeLocalPromptSize, changeLocalPromptStatus } =
-  promptSlice.actions;
+export const {
+  changeLocalPromptSize,
+  changeLocalPromptStatus,
+  setCurrentFileText,
+} = promptSlice.actions;
 
 export default promptSlice.reducer;

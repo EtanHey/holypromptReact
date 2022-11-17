@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { FileInterface } from '../../interfaces&enums/fileInterface';
 import { UsersLoginInfo } from '../../interfaces&enums/usersInterfaces';
 
-export const checkUserFromCookieThunk = createAsyncThunk(
-  'users/checkUserFromCookie',
-  async () => {
-    const { user } = await window.electron.ipcRenderer.checkUserFromCookie();
-    if (!Number.isNaN(Number(user))) throw new Error(user);
-    return { user };
+export const saveUserFilesThunk = createAsyncThunk(
+  'files/saveUserFiles',
+  async (file: FileInterface) => {
+    const { data } = await window.electron.ipcRenderer.saveUserFiles(file);
+    return data;
   }
 );
 export const getUsersInfoThunk = createAsyncThunk(
@@ -19,20 +19,3 @@ export const getUsersInfoThunk = createAsyncThunk(
     return { user };
   }
 );
-
-export const getGoogleUserThunk = createAsyncThunk(
-  'users/fetchGoogleUsersInfo',
-  async (loginJWT: string) => {
-    const { user } = await window.electron.ipcRenderer.getGoogleUsersInfo(
-      loginJWT
-    );
-    if (!Number.isNaN(Number(user))) throw new Error(user);
-    return { user };
-  }
-);
-export const setUserInfo = createAsyncThunk('map/setUsersInfo', async () => {
-  const data = await window.electron.ipcRenderer.setUsersInfo();
-  return data;
-});
-
-// https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&types=food&name=harbour&sensor=false&key=AddYourOwnKeyHere

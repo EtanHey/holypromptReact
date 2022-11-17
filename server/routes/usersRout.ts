@@ -1,12 +1,12 @@
 import express from "express"
 const router = express.Router();
 
-import {getUsersInfo,getGoogleUsersInfo, checkUserFromCookie} from '../controllers/usersCont'
+import {getUsersInfo,getGoogleUsersInfo, addFileToUser} from '../controllers/usersCont'
 
 router
-.post('/checkUserFromCookie',checkUserFromCookie)
 .post('/getUsersInfo',getUsersInfo)
 .post('/getGoogleUsersInfo',getGoogleUsersInfo)
+.post('/addFileToUser',addFileToUser)
 
 
 

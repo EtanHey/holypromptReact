@@ -1,7 +1,7 @@
-import { useAppSelector } from '../../app/hooks';
-import { selectPromptState } from '../../features/prompt/promptSlice';
+import { useAppSelector } from '../../../app/hooks';
+import { selectPromptState } from '../../../features/prompt/promptSlice';
 import SelectedFileEdit from './SelectedFileEdit';
-import { StyledEditor } from './styledComponents';
+import { StyledEditor } from '../styledComponents';
 import Tabs from './Tabs';
 
 const Editor = () => {

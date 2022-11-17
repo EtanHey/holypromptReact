@@ -16,6 +16,7 @@ export const StyledTextArea = styled.textarea.attrs((props: TextAreaProps) => ({
   style: {
     height: `${props.height}px`,
   },
+  textContent: 'hello world',
 }))`
   background-color: inherit;
   color: inherit;
@@ -62,20 +63,21 @@ interface StyledPromptModalProps {
   show: boolean;
   size: string;
   fontSize: string;
-  aspectRatio: string;
+  aspectRatio?: string;
 }
 export const StyledPromptModal: any = styled.div.attrs(
   (props: StyledPromptModalProps) => ({
     style: {
       width: props.size || '50%',
-      // height: props.size || '50%',
+      // maxHeight: window.innerHeight * Number(props.size),
       display: props.show ? 'block' : 'none',
       background: props.bgColor || 'var(--black)',
       color: props.textColor || 'var(--white)',
-      aspectRatio: props.aspectRatio,
+      aspectRatio: `${window.innerWidth} / ${window.innerHeight}`,
     },
   })
 )<StyledPromptModalProps>`
+  overflow: overlay;
   top: 0;
   left: 0;
   padding: 0;
@@ -87,8 +89,9 @@ export const StyledPromptModal: any = styled.div.attrs(
     font-size: ${(props: StyledPromptModalProps) => props.fontSize} || 16px;
     line-height: 32px;
   }
+  .styledPromptModalContainer {
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+  }
 `;
-
-interface StyledPromptToggleProps {
-  on?: boolean;
-}

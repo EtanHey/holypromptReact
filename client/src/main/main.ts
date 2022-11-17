@@ -22,11 +22,8 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import { UsersLoginInfo } from '../interfaces&enums/usersInterfaces';
-import {
-  getUsersInfo,
-  getGoogleUsersInfo,
-  checkUserFromCookie,
-} from './requesters/userReqs';
+import { getUsersInfo, getGoogleUsersInfo } from './requesters/userReqs';
+import { saveUserFiles } from './requesters/fileReqs';
 
 class AppUpdater {
   constructor() {
@@ -146,6 +143,7 @@ app
     globalShortcut.register('CommandOrControl+R', () => {
       console.log('Unable to refresh');
     });
+
     createWindow();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
@@ -155,17 +153,16 @@ app
   })
   .catch(console.log);
 
-// ipcMain.handle('checkUserFromCookie', async (event) => {
-//   const cookie = await event.sender.session.cookies.get({ name: 'UserCookie' });
-//   if (!cookie) return { user: 404 };
-// const data = await checkUserFromCookie();
-// return data;
-// });
 ipcMain.handle('getUsersInfo', async (event, loginInfo: UsersLoginInfo) => {
   const data = await getUsersInfo(loginInfo);
   return data;
 });
 ipcMain.handle('getGoogleUsersInfo', async (event, loginJWT: string) => {
   const data = await getGoogleUsersInfo(loginJWT);
+  return data;
+});
+ipcMain.handle('saveUserFiles', async (event, file: any) => {
+  console.log(file, 'file, 165 main');
+  const data = await saveUserFiles(file);
   return data;
 });

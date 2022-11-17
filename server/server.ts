@@ -11,6 +11,9 @@ app.use(express.json());
 
 import usersRout from './routes/usersRout';
 app.use('/api/users', usersRout);
+import filesRout from './routes/filesRout';
+app.use('/api/files', filesRout);
+
 mongoose
   .connect(URI)
   .then(() => {

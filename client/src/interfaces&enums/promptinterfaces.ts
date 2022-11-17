@@ -1,3 +1,4 @@
+import { FileInterface } from './fileInterface';
 import { PromptSizes, StatusEnum } from './statusEnums';
 
 export interface PromptState {
@@ -7,10 +8,10 @@ export interface PromptState {
   font: string;
   backgroundColor: string;
   speed: number;
-  file?: string;
+  files: Array<FileInterface>;
   local: {
     monitor: boolean;
     size?: PromptSizes;
   };
+  currentFile?: FileInterface;
 }
-export default PromptState;

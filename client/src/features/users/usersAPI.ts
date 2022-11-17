@@ -3,14 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { UsersLoginInfo } from '../../interfaces&enums/usersInterfaces';
 
-export const checkUserFromCookieThunk = createAsyncThunk(
-  'users/checkUserFromCookie',
-  async () => {
-    const { user } = await window.electron.ipcRenderer.checkUserFromCookie();
-    if (!Number.isNaN(Number(user))) throw new Error(user);
-    return { user };
-  }
-);
 export const getUsersInfoThunk = createAsyncThunk(
   'users/fetchUsersInfo',
   async (loginInfo: UsersLoginInfo) => {

@@ -1,3 +1,5 @@
+import { FileInterface } from '../interfaces&enums/fileInterface';
+import { File } from '../interfaces&enums/promptInterfaces';
 import {
   UsersInfo,
   UsersLoginInfo,
@@ -16,10 +18,12 @@ declare global {
           func: (...args: unknown[]) => void
         ): (() => void) | undefined;
         once(channel: Channels, func: (...args: unknown[]) => void): void;
-        checkUserFromCookie(): any;
+        // user functions:
         getUsersInfo(info: UsersLoginInfo): any;
         getGoogleUsersInfo(loginJWT: string): any;
         setUsersInfo(): UsersState;
+        // file functions:
+        saveUserFiles(file: FileInterface): any;
       };
     };
   }

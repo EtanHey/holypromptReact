@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import { FileInterface } from '../interfaces&enums/fileInterface';
 import { UsersInfo, UsersLoginInfo } from '../interfaces&enums/usersInterfaces';
 
 export type Channels = 'ipc-example';
@@ -20,10 +21,7 @@ contextBridge.exposeInMainWorld('electron', {
     once(channel: Channels, func: (...args: unknown[]) => void) {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
-    checkUserFromCookie: async () => {
-      const data = await ipcRenderer.invoke('checkUserFromCookie');
-      return data;
-    },
+    // user functions
     getUsersInfo: async (loginInfo: UsersLoginInfo) => {
       const data = await ipcRenderer.invoke('getUsersInfo', loginInfo);
       return data;
@@ -34,6 +32,11 @@ contextBridge.exposeInMainWorld('electron', {
     },
     setUsersInfo: async (info: UsersLoginInfo) => {
       const data = await ipcRenderer.invoke('setUsersInfo', info);
+      return { data };
+    },
+    // file functions
+    saveUserFiles: async (file: FileInterface) => {
+      const data = await ipcRenderer.invoke('saveUserFiles', file);
       return { data };
     },
   },
