@@ -64,6 +64,7 @@ interface StyledPromptModalProps {
   size: string;
   fontSize: string;
   aspectRatio?: string;
+  className: string;
 }
 export const StyledPromptModal: any = styled.div.attrs(
   (props: StyledPromptModalProps) => ({

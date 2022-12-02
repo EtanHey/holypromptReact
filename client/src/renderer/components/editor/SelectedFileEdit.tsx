@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { RefObject, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { saveUserFilesThunk } from '../../../features/prompt/promptAPI';
 import {
   selectPromptState,
   setCurrentFileText,
 } from '../../../features/prompt/promptSlice';
+import { selectUsersFiles } from '../../../features/users/usersSlice';
 import { StyledTextArea } from '../styledComponents';
 
 const SelectedFileEdit = () => {
@@ -26,6 +28,7 @@ const SelectedFileEdit = () => {
           .join('');
       }
       dispatch(setCurrentFileText(event.target.value.split('\n')));
+      // dispatch(saveUserFilesThunk());
     } catch (error) {
       console.log(error);
     }

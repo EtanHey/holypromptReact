@@ -1,5 +1,4 @@
 import { FileInterface } from '../interfaces&enums/fileInterface';
-import { File } from '../interfaces&enums/promptInterfaces';
 import {
   UsersInfo,
   UsersLoginInfo,

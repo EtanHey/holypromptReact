@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { FileInterface } from '../../interfaces&enums/fileInterface';
+import { UsersInfo } from '../../interfaces&enums/usersInterfaces';
 
 const proxy = 'http://localhost:4005';
 

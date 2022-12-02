@@ -19,6 +19,7 @@ export const getGoogleUserThunk = createAsyncThunk(
       loginJWT
     );
     if (!Number.isNaN(Number(user))) throw new Error(user);
+
     return { user };
   }
 );
